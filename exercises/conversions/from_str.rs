@@ -11,8 +11,6 @@ struct Person {
     age: usize,
 }
 
-// I AM NOT DONE
-
 // Steps:
 // 1. If the length of the provided string is 0, an error should be returned
 // 2. Split the given string on the commas present in it
@@ -26,6 +24,39 @@ struct Person {
 impl FromStr for Person {
     type Err = Box<dyn error::Error>;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+
+        let mut person = Person{name: String::from(""), age: 0};
+
+        if s.len() == 0 {
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "ErRoR")));
+        }
+
+        let mut fields = s.split(',');
+
+        let name = fields.next().unwrap();
+        if name.len() == 0 {
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "ErRoR")));
+        }
+
+        if let Some(age_str) = fields.next() {
+            match fields.next() {
+                None => {
+                    if let Ok(age) = age_str.parse::<usize>() {
+                        person.name = String::from(name);
+                        person.age = age;
+                    }
+                    else {
+                        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "ErRoR")));
+                    }
+                },
+                _ => return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "ErRoR")))
+            }
+        } else {
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "ErRoR")));
+        }
+        
+        return Ok(person);
+
     }
 }
 
