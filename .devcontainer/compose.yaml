@@ -1,0 +1,20 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DC_USER: ${DC_USER:?}
+        DC_UID: ${DC_UID:?}
+        DC_GID: ${DC_GID:?}
+    container_name: rustlings-devcontainer
+    image: rustlings-devcontainer
+    init: true
+    network_mode: host
+    privileged: false
+    tty: true
+    volumes:
+      - type: bind
+        source: ..
+        target: ${DC_WORKSPACE:?}
+    working_dir: ${DC_WORKSPACE:?}

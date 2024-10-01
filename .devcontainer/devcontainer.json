@@ -1,0 +1,17 @@
+{
+    "name": "Rustlings",
+    "dockerComposeFile": "${localWorkspaceFolder}/.devcontainer/compose.yaml",
+    "initializeCommand": "${localWorkspaceFolder}/.devcontainer/init",
+    "service": "devcontainer",
+    "workspaceFolder": "/workspaces/rustlings",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer"
+            ],
+            "settings": {
+                "editor.inlayHints.enabled": "offUnlessPressed"
+            }
+        }
+    }
+}
